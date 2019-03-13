@@ -12,14 +12,20 @@ if [ ! -e "$HOME/.dashcore/dash.conf" ]; then
     # Seed a random password for JSON RPC server
     cat <<EOF > $HOME/.dashcore/dash.conf
 testnet=${TESTNET:-0}
-disablewallet=${DISABLEWALLET:-1}
-printtoconsole=${PRINTTOCONSOLE:-1}
+server=1
+whitelist=127.0.0.1
 txindex=1
 addressindex=1
 timestampindex=1
 spentindex=1
-rpcuser=${RPCUSER:-dashrpc}
-rpcpassword=${RPCPASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+zmqpubrawtx=tcp://127.0.0.1:28332
+zmqpubrawtxlock=tcp://127.0.0.1:28332
+zmqpubhashblock=tcp://127.0.0.1:28332
+rpcuser=dash
+rpcpassword=local321
+rpcport=9998
+rpcallowip=127.0.0.1
+uacomment=dashcore
 EOF
 
 fi

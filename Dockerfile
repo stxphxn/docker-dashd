@@ -1,5 +1,5 @@
 FROM phusion/baseimage
-MAINTAINER Holger Schinzel <holger@dash.org>
+MAINTAINER Stephen Horsfall <hi@iamstephen.net>
 
 ARG USER_ID
 ARG GROUP_ID
@@ -13,6 +13,9 @@ RUN groupadd -g ${GROUP_ID} dash
 RUN useradd -u ${USER_ID} -g dash -s /bin/bash -m -d /dash dash
 
 RUN chown dash:dash -R /dash
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y build-essential libtool autotools-dev autoconf pkg-config libssl-dev libevent-dev libboost-all-dev libminiupnpc-dev libzmq3-dev bsdmainutils git
 
 ADD https://github.com/dashpay/dash/releases/download/v0.13.1.0/dashcore-0.13.1.0-x86_64-linux-gnu.tar.gz /tmp/
 RUN tar -xvf /tmp/dashcore-*.tar.gz -C /tmp/
@@ -30,7 +33,7 @@ USER dash
 
 VOLUME ["/dash"]
 
-EXPOSE 9998 9999 19998 19999
+EXPOSE 9998 9999 19998 19999 28332
 
 WORKDIR /dash
 
